@@ -1,9 +1,10 @@
 $(function () {
 	
 	var rippleDefaults = {
-		period: 2, // period of wave in steps
-		velocity: 2,
-		waveWidth: 2
+		period: 1, // period of wave in steps
+		velocity: 1,
+		waveWidth: 2,
+		invert: false
 	};
 
 	interference.Ripple = function (options) {
@@ -22,7 +23,9 @@ $(function () {
 		this._stepCount = 0;
 		this._rings = [];
 
-		this._colorSequence = new interference.GreySequence();
+		this._colorSequence = new interference.GreySequence({
+			invert: settings.invert
+		});
 	};
 	
 	interference.Ripple.prototype.destroy = function (ring) {

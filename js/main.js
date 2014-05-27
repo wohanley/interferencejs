@@ -9,7 +9,7 @@ $(function () {
 		output: output
 	});
 	
-	var createRipple = function (width, height, origin) {
+	var createRipple = function (width, height, origin, invert) {
 		
 		canvas = $('<canvas class="component" />').appendTo('body');
 		canvas = canvas.get(0);
@@ -21,12 +21,13 @@ $(function () {
 		return new interference.Ripple({
 			context: canvas.getContext("2d"),
 			canvas: canvas,
-			origin: origin
+			origin: origin,
+			invert: invert
 		});
 	};
 
-	var leftRipple = createRipple(400, 300, { x: 100, y: 150 });
-	var rightRipple = createRipple(400, 300, { x: 300, y: 150 });
+	var leftRipple = createRipple(400, 300, { x: 100, y: 150 }, false);
+	var rightRipple = createRipple(400, 300, { x: 300, y: 150 }, true);
 	
 	setInterval(function () {
 		leftRipple.step();

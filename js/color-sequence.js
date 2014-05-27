@@ -61,12 +61,28 @@ $(function () {
 		value = Math.min(255, Math.max(0, Math.round(value)));
 		return 'rgb(' + value + ',' + value + ',' + value + ')';
 	};
+	
+	var greySequenceDefaults = {
+		invert: false
+	};
 
 	interference.GreySequence = function (options) {
-		this._valueSequence = new interference.Sine(options);
+		
+		var settings = $.extend({}, greySequenceDefaults, options);
+		
+		this._normalize = settings.invert ? this._subtractGrey : this._addGrey;
+		this._valueSequence = new interference.Sine(settings);
+	};
+	
+	interference.GreySequence.prototype._addGrey = function (value) {
+		return 128 + (value * 64);
+	};
+	
+	interference.GreySequence.prototype._subtractGrey = function (value) {
+		return 128 - (value * 64);
 	};
 
 	interference.GreySequence.prototype.next = function () {
-		return interference.toGrey(128 + (this._valueSequence.next() * 128));
+		return interference.toGrey(this._normalize(this._valueSequence.next()));
 	};
 });
