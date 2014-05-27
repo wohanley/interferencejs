@@ -1,9 +1,9 @@
 $(function () {
 	
 	var rippleDefaults = {
-		period: 12, // period of wave in steps
+		period: 2, // period of wave in steps
 		velocity: 5,
-		waveWidth: 1
+		waveWidth: 2
 	};
 
 	interference.Ripple = function (options) {
@@ -22,11 +22,7 @@ $(function () {
 		this._stepCount = 0;
 		this._rings = [];
 
-		this._colourSequence = interference.GreySequence({
-			floor: 0,
-			ceiling: 255,
-			step: 50
-		});
+		this._colorSequence = new interference.GreySequence();
 	};
 	
 	interference.Ripple.prototype.destroy = function (ring) {
@@ -56,7 +52,7 @@ $(function () {
 				origin: this._origin,
 				velocity: this._velocity,
 				width: this._waveWidth,
-				style: this._colourSequence.next(),
+				style: this._colorSequence.next(),
 				reaper: this
 			}));
 			this._stepCount = 0;

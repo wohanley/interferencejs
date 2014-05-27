@@ -11,7 +11,7 @@ $(function () {
 	
 	var createRipple = function (width, height, origin) {
 		
-		canvas = $('<canvas/>').appendTo('body');
+		canvas = $('<canvas class="component" />').appendTo('body');
 		canvas = canvas.get(0);
 		canvas.width = width;
 		canvas.height = height;
@@ -32,5 +32,5 @@ $(function () {
 		leftRipple.step();
 		rightRipple.step();
 		sum.update();
-	}, 50);
+	}, 100);
 });

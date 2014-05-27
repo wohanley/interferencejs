@@ -38,17 +38,32 @@ $(function () {
 		
 		return this._current;
 	};
+	
+	var sineDefaults = {
+		floor: 0,
+		ceiling: 2 * Math.PI,
+		step: 0.5
+	};
+	
+	interference.Sine = function (options) {
+		this._x = new interference.LinearPeriod($.extend({}, sineDefaults, options));
+	};
+	
+	interference.Sine.prototype.next = function () {
+		return Math.sin(this._x.next());
+	};
 
 	interference.toGrey = function (value) {
-		value = Math.min(255, Math.max(0, value));
+		value = Math.min(255, Math.max(0, Math.round(value)));
 		return 'rgb(' + value + ',' + value + ',' + value + ')';
 	};
 
 	interference.GreySequence = function (options) {
-		this._valueSequence = new interference.LinearPeriod(options);
+		this._valueSequence = new interference.Sine(options);
 	};
 
 	interference.GreySequence.prototype.next = function () {
-		return interference.toGrey(this._valueSequence.next());
+		var next = interference.toGrey(128 + (this._valueSequence.next() * 128));
+		return next;
 	};
 });
