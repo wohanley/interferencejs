@@ -2,12 +2,13 @@ $(function () {
 	
 	var rippleDefaults = {
 		period: 12, // period of wave in steps
-		velocity: 5
+		velocity: 5,
+		waveWidth: 1
 	};
 
 	interference.Ripple = function (options) {
 		
-		this._backStyle = '#888';
+		this._backStyle = 'rgb(127, 127, 127)';
 		
 		var settings = $.extend({}, rippleDefaults, options);
 		
@@ -15,10 +16,17 @@ $(function () {
 		this._canvas = settings.canvas;
 		this._origin = settings.origin;
 		this._period = settings.period;
+		this._velocity = settings.velocity;
+		this._waveWidth = settings.waveWidth;
 		
 		this._stepCount = 0;
 		this._rings = [];
-		this._nextRingBlack = false;
+
+		this._colourSequence = interference.GreySequence({
+			floor: 0,
+			ceiling: 255,
+			step: 50
+		});
 	};
 	
 	interference.Ripple.prototype.destroy = function (ring) {
@@ -47,15 +55,11 @@ $(function () {
 				context: this._context,
 				origin: this._origin,
 				velocity: this._velocity,
-				style: this._flipColor(),
+				width: this._waveWidth,
+				style: this._colourSequence.next(),
 				reaper: this
 			}));
 			this._stepCount = 0;
 		}
-	};
-	
-	interference.Ripple.prototype._flipColor = function () {
-		this._nextRingBlack = !this._nextRingBlack;
-		return this._nextRingBlack ? '#333' : '#BBB';
 	};
 });

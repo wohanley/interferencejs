@@ -1,20 +1,13 @@
 $(function () {
 
-	var ringWaveDefaults = {
-		velocity: 5, // in pixels per step
-		width: 30 // in pixels
-	};
-	
 	interference.RingWave = function (options) {
 		
-		var settings = $.extend({}, ringWaveDefaults, options);
-		
-		this._reaper = settings.reaper;
-		this._context = settings.context;
-		this._origin = settings.origin;
-		this._velocity = settings.velocity;
-		this._width = settings.width;
-		this._style = settings.style;
+		this._reaper = options.reaper;
+		this._context = options.context;
+		this._origin = options.origin;
+		this._velocity = options.velocity;
+		this._width = options.width;
+		this._style = options.style;
 		
 		this._radius = 0;
 	};
