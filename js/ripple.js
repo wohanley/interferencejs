@@ -1,7 +1,7 @@
 $(function () {
 	
 	var rippleDefaults = {
-		frequency: 12,
+		period: 12, // period of wave in steps
 		velocity: 5
 	};
 
@@ -14,7 +14,7 @@ $(function () {
 		this._context = settings.context;
 		this._canvas = settings.canvas;
 		this._origin = settings.origin;
-		this._frequency = settings.frequency;
+		this._period = settings.period;
 		
 		this._stepCount = 0;
 		this._rings = [];
@@ -42,7 +42,7 @@ $(function () {
 	};
 	
 	interference.Ripple.prototype._newRingStep = function () {
-		if (this._stepCount > this._frequency) {
+		if (this._stepCount > this._period) {
 			this._rings.push(new interference.RingWave({
 				context: this._context,
 				origin: this._origin,
