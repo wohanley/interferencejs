@@ -2,7 +2,7 @@ $(function () {
 	
 	var rippleDefaults = {
 		period: 2, // period of wave in steps
-		velocity: 5,
+		velocity: 2,
 		waveWidth: 2
 	};
 

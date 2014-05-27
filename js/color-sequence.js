@@ -40,17 +40,21 @@ $(function () {
 	};
 	
 	var sineDefaults = {
-		floor: 0,
-		ceiling: 2 * Math.PI,
+		start: 0,
 		step: 0.5
 	};
 	
 	interference.Sine = function (options) {
-		this._x = new interference.LinearPeriod($.extend({}, sineDefaults, options));
+		
+		var settings = $.extend({}, sineDefaults, options);
+		
+		this._currentX = settings.start;
+		this._step = settings.step;
 	};
 	
 	interference.Sine.prototype.next = function () {
-		return Math.sin(this._x.next());
+		this._currentX += this._step;
+		return Math.sin(this._currentX);
 	};
 
 	interference.toGrey = function (value) {
@@ -63,7 +67,6 @@ $(function () {
 	};
 
 	interference.GreySequence.prototype.next = function () {
-		var next = interference.toGrey(128 + (this._valueSequence.next() * 128));
-		return next;
+		return interference.toGrey(128 + (this._valueSequence.next() * 128));
 	};
 });
