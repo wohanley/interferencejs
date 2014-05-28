@@ -1,25 +1,30 @@
 $(function () {
-	var canvasSize = 500;
 	
-	canvas = $('<canvas/>').appendTo('body');
-	canvas = canvas.get(0);
-	canvas.height = canvasSize;
-	canvas.width = canvasSize;
+	var createRipple = function (width, height, origin) {
+		
+		canvas = $('<canvas/>').appendTo('body');
+		canvas = canvas.get(0);
+		canvas.width = width;
+		canvas.height = height;
+		
+		var context = canvas.getContext("2d");
+		context.save();
+		context.fillStyle = "#FFF";
+		context.fillRect(0, 0, width, height);
+		context.fillStyle = "#000";
+		
+		return new interference.Ripple({
+			context: context,
+			canvas: canvas,
+			origin: origin
+		});
+	};
+
+	var leftRipple = createRipple(400, 300, { x: 100, y: 150 });
+	var rightRipple = createRipple(400, 300, { x: 300, y: 150 });
 	
-	var context = canvas.getContext("2d");
-	context.save();
-	context.fillStyle = "#FFF";
-	context.fillRect(0, 0, canvasSize, canvasSize);
-	context.fillStyle = "#000";
-	
-	var ripple = new interference.Ripple({
-		context: context,
-		canvas: canvas,
-		origin: {
-			x: canvas.width / 2,
-			y: canvas.height / 2
-		}
-	});
-	
-	setInterval(function () { ripple.step(); }, 50);
+	setInterval(function () {
+		leftRipple.step();
+		rightRipple.step();
+	}, 50);
 });
