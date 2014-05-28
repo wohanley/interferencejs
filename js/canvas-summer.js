@@ -11,9 +11,9 @@ $(function () {
 	var addPixelValues = function (componentDatas, offset) {
 		var sum = 0;
 		for (var i = 0; i < componentDatas.length; i++) {
-			sum += componentDatas[i].data[offset];
+			sum += (componentDatas[i].data[offset] - 128);
 		}
-		return sum;
+		return Math.min(255, Math.max(0, 128 + sum));
 	};
 	
 	var summerDefaults = {

@@ -7,6 +7,8 @@ $(function () {
 
 	interference.Ripple = function (options) {
 		
+		this._backStyle = '#888';
+		
 		var settings = $.extend({}, rippleDefaults, options);
 		
 		this._context = settings.context;
@@ -16,6 +18,7 @@ $(function () {
 		
 		this._stepCount = 0;
 		this._rings = [];
+		this._nextRingBlack = false;
 	};
 	
 	interference.Ripple.prototype.destroy = function (ring) {
@@ -23,7 +26,10 @@ $(function () {
 	};
 
 	interference.Ripple.prototype.step = function () {
-		this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
+		this._context.save();
+		this._context.fillStyle = this._backStyle;
+		this._context.fillRect(0, 0, this._canvas.width, this._canvas.height);
+		this._context.restore();
 		this._moveRingsStep();
 		this._newRingStep();
 		this._stepCount++;
@@ -41,9 +47,15 @@ $(function () {
 				context: this._context,
 				origin: this._origin,
 				velocity: this._velocity,
+				style: this._flipColor(),
 				reaper: this
 			}));
 			this._stepCount = 0;
 		}
+	};
+	
+	interference.Ripple.prototype._flipColor = function () {
+		this._nextRingBlack = !this._nextRingBlack;
+		return this._nextRingBlack ? '#333' : '#BBB';
 	};
 });

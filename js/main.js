@@ -18,14 +18,8 @@ $(function () {
 		
 		sum.components.push(canvas);
 		
-		var context = canvas.getContext("2d");
-		context.save();
-		context.fillStyle = "#FFF";
-		context.fillRect(0, 0, width, height);
-		context.fillStyle = "#000";
-		
 		return new interference.Ripple({
-			context: context,
+			context: canvas.getContext("2d"),
 			canvas: canvas,
 			origin: origin
 		});

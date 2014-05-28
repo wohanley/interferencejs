@@ -2,7 +2,7 @@ $(function () {
 
 	var ringWaveDefaults = {
 		velocity: 5, // in pixels per step
-		width: 5 // in pixels
+		width: 30 // in pixels
 	};
 	
 	interference.RingWave = function (options) {
@@ -14,6 +14,7 @@ $(function () {
 		this._origin = settings.origin;
 		this._velocity = settings.velocity;
 		this._width = settings.width;
+		this._style = settings.style;
 		
 		this._radius = 0;
 	};
@@ -32,8 +33,7 @@ $(function () {
 		this._context.save();
 		
 		this._context.lineWidth = this._width;
-		this._context.strokeStyle = '#000';
-		this._context.globalAlpha = 0.5;
+		this._context.strokeStyle = this._style;
 		
 		this._context.beginPath();
 		this._context.arc(
