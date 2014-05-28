@@ -14,6 +14,7 @@ $(function () {
 	
 	var ripple = new interference.Ripple({
 		context: context,
+		canvas: canvas,
 		origin: {
 			x: canvas.width / 2,
 			y: canvas.height / 2

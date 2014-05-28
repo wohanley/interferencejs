@@ -1,7 +1,7 @@
 $(function () {
 	
 	var rippleDefaults = {
-		frequency: 5,
+		frequency: 12,
 		velocity: 5
 	};
 
@@ -10,6 +10,7 @@ $(function () {
 		var settings = $.extend({}, rippleDefaults, options);
 		
 		this._context = settings.context;
+		this._canvas = settings.canvas;
 		this._origin = settings.origin;
 		this._frequency = settings.frequency;
 		
@@ -22,6 +23,7 @@ $(function () {
 	};
 
 	interference.Ripple.prototype.step = function () {
+		this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
 		this._moveRingsStep();
 		this._newRingStep();
 		this._stepCount++;
@@ -41,6 +43,7 @@ $(function () {
 				velocity: this._velocity,
 				reaper: this
 			}));
+			this._stepCount = 0;
 		}
 	};
 });
